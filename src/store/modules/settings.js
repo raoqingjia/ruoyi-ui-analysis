@@ -46,7 +46,7 @@ const mutations = {
  * 写在前面
  *
  * 1、 先说一下 action 中的 { commit } 写法
- * Vuex 中 使用 Action 处理异步请求时，常规写法如下
+ * Vuex 中 使用 Action 处理异步请求时，常规写法如下   actions的方法中第一个参数其实是自带的context，而第二个是数据
  actions:{
    getMenuAction:(context) =>{
       context.commit('SET_MENU_LIST',['承保2','核保2'])
@@ -61,18 +61,25 @@ const mutations = {
  简化的写法可以理解为 ：  context.commit  使用变量解构赋值后=>  { commit } = context.commit
  * https://blog.csdn.net/JCzlh/article/details/114587369?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-114587369-blog-129508332.235^v38^pc_relevant_anti_t3_base&spm=1001.2101.3001.4242.1&utm_relevant_index=3
  *
+ *
+ *
  * 2、  vuex为什么不建议在action中修改state
  * 官方的“叮嘱”，谨记“一定不要在action中修改state，而是要在mutation中修改”
  * Vuex两个最核心的API：dispatch & commit，它们是分别用来提交action和mutation的
- *
- *
- * */
-
-/**
- * 我对vuex里的commit就很不理解
+ * 我曾对vuex里的commit  dispatch 就很不理解
  * this.$store.state.settings.test = !this.$store.state.settings.test; 也能赋值，页面也是响应式的，为啥还用 actions  mutations
  * 直接修改state时，store中的state能够改变，并且是响应式的，并没有报错。跟commit提交mutation的方式没啥区别。
+ * 官方文档的意思是：
+ * 直接修改vuex的state确实是可行的，但我们约定不要这么干是为了收敛逻辑，避免某个功能的关注点被分散。
+ * 也就是通过mutation函数，我们可以从函数名中读出来一定的功能意图，如果将修改state的操作分散到各个地方，那么当分析代码，或排查问题时，
+ * 就需要全局搜索这个state在哪里修改的，打开多个文件，具体到某个区域分析，这就是关注点分散了。
+ * 这里就涉及到了具体的源码问题了，不在这里写了网上搜吧
  *
+ *
+ * 3、 Vuex的确支持声明多个同名的mutation，不过前提是它们在不同的namespace下；action同理
+ *  this.$store.commit("SET_SIDEBAR_ROUTERS", routes);
+ *  this.$store.dispatch('app/toggleSideBar')   store.dispatch('LogOut').then(() => {})
+ *  前一个定义了用的是app模块的，后一个LogOut没定义就直接引用后.then()了，单LogOut全是大写
  *
  *
  *
