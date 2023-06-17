@@ -31,4 +31,4 @@ npm run build:prod
 
 先按模块区分
 store 文件是 Vuex功能
-主要看  store/modules/permission.js    store/getters.js
+主要看  store/modules/permission.js  store/modules/settings.js   store/getters.js  这几个文件夹
