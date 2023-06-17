@@ -94,3 +94,13 @@ const user = {
 }
 
 export default user
+
+/**
+ * 解释store/modules
+ *  1、 modules 四要素 namespaced  state  mutations actions
+ *  2、 namespaced:true, 开启命名空间
+ *  3、 export default 最后返回的是个对象格式  state  mutations actions 这三个字段也都是对象格式
+ *  4、 state 初始化获取值可以去cookies值，也可以取session值，但是页面关闭session就不存在了cookies还在
+ *   存cookies的值都是基本对象格式 如 string number boolean 存 session里的多吧都 引用对象格式
+ *
+ * */
